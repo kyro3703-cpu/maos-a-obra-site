@@ -1,1 +1,108 @@
-(()=>{const q=s=>document.querySelector(s),sets={eletrica:['Elétrica residencial','SERVIÇOS ELÉTRICOS',['Tomadas','Interruptores','Luminárias','Chuveiro elétrico','Quadro elétrico','Correção de falhas','Ventilador de teto','Iluminação externa']],hidraulica:['Hidráulica residencial','SERVIÇOS HIDRÁULICOS',['Vazamentos','Torneiras','Registros','Descargas','Tubulações','Pias e cubas','Filtros','Manutenção preventiva']],pintura:['Pintura residencial','PINTURA E ACABAMENTO',['Pintura interna','Pintura externa','Tetos','Fachadas','Massa corrida','Texturas','Portas e janelas','Retoques']],revestimentos:['Pisos e revestimentos','REVESTIMENTOS',['Piso cerâmico','Porcelanato','Azulejos','Piso sobre piso','Rodapés','Rejuntamento','Troca de peças','Preparação da base']],montagens:['Montagens e reparos','SERVIÇOS RESIDENCIAIS',['Móveis','Suportes','Prateleiras','Varais','Cortinas','Fechaduras','Portas','Pequenos reparos']],reforma:['Reformas residenciais','REFORMAS E MELHORIAS',['Cozinha','Banheiro','Quarto','Sala','Área externa','Alvenaria','Drywall e gesso','Acabamentos']]},photos=['1621905252507-b35492cc74b4','1581578731548-c64695cc6952','1562259949-e8e7689d7828','1581783898377-1c85bf937427','1504148455328-c376907d081c','1503387762-592deb58ef4e','1544724569-5f546fd6f2b5','1513506003901-1e6a229e2d15'];const pathKey=location.pathname.split('/').filter(Boolean).pop(),key=new URLSearchParams(location.search).get('tipo')||(pathKey&&sets[pathKey]?pathKey:'eletrica'),s=sets[key]||sets.eletrica;q('#title').textContent=s[0];q('#tag').textContent=s[1];q('#lead').textContent='Atendimento profissional para cuidar do seu imóvel com segurança e organização.';q('#f-service').value=s[0];q('.hero').style.backgroundImage='url(https://images.unsplash.com/photo-'+photos[0]+'?auto=format&fit=crop&w=1800&q=88)';const track=q('#track'),dots=q('#dots');track.innerHTML=s[2].map((n,i)=>'<article class="card"><div class="copy"><h3>'+n+'</h3><p>Avaliamos a necessidade, explicamos a solução e executamos conforme o orçamento aprovado.</p></div><img src="https://images.unsplash.com/photo-'+photos[i]+'?auto=format&fit=crop&w=1200&q=86" alt="'+n+'"></article>').join('');dots.innerHTML=s[2].map((_,i)=>'<button class="'+(i?'':'on')+'"></button>').join('');const cards=[...track.children],ds=[...dots.children];let p=0,t;const go=n=>{p=n>=cards.length?0:n<0?cards.length-1:n;track.scrollTo({left:cards[p].offsetLeft-track.offsetLeft,behavior:'smooth'});ds.forEach((d,i)=>d.classList.toggle('on',i===p))},start=()=>{clearInterval(t);t=setInterval(()=>go(p+1),4500)};q('#prev').onclick=()=>{go(p-1);start()};q('#next').onclick=()=>{go(p+1);start()};ds.forEach((d,i)=>d.onclick=()=>{go(i);start()});track.onmouseenter=()=>clearInterval(t);track.onmouseleave=start;const wa='https://wa.me/5522988020606?text='+encodeURIComponent('Olá! Gostaria de orçamento para '+s[0]);document.querySelectorAll('.wa').forEach(a=>a.href=wa);q('#lead-form').onsubmit=e=>{e.preventDefault();const text=['Olá! Gostaria de solicitar uma avaliação.','Nome: '+q('#f-name').value,'Telefone: '+q('#f-phone').value,'E-mail: '+q('#f-email').value,'Cidade: '+q('#f-city').value+' / '+q('#f-state').value,'Serviço: '+s[0],'Detalhes: '+(q('#f-message').value||'Não informado')].join('\n');window.open('https://wa.me/5522988020606?text='+encodeURIComponent(text),'_blank')};start()})();
+(() => {
+  const q = (selector, root = document) => root.querySelector(selector);
+  const sets = {
+    eletrica: ['Elétrica residencial', 'SERVIÇOS ELÉTRICOS', ['Tomadas', 'Interruptores', 'Luminárias', 'Chuveiro elétrico', 'Quadro elétrico', 'Correção de falhas', 'Ventilador de teto', 'Iluminação externa']],
+    hidraulica: ['Hidráulica residencial', 'SERVIÇOS HIDRÁULICOS', ['Vazamentos', 'Torneiras', 'Registros', 'Descargas', 'Tubulações', 'Pias e cubas', 'Filtros', 'Manutenção preventiva']],
+    pintura: ['Pintura residencial', 'PINTURA E ACABAMENTO', ['Pintura interna', 'Pintura externa', 'Tetos', 'Fachadas', 'Massa corrida', 'Texturas', 'Portas e janelas', 'Retoques']],
+    revestimentos: ['Pisos e revestimentos', 'REVESTIMENTOS', ['Piso cerâmico', 'Porcelanato', 'Azulejos', 'Piso sobre piso', 'Rodapés', 'Rejuntamento', 'Troca de peças', 'Preparação da base']],
+    montagens: ['Montagens e reparos', 'SERVIÇOS RESIDENCIAIS', ['Móveis', 'Suportes', 'Prateleiras', 'Varais', 'Cortinas', 'Fechaduras', 'Portas', 'Pequenos reparos']],
+    reforma: ['Reformas residenciais', 'REFORMAS E MELHORIAS', ['Cozinha', 'Banheiro', 'Quarto', 'Sala', 'Área externa', 'Alvenaria', 'Drywall e gesso', 'Acabamentos']]
+  };
+  const photos = ['1621905252507-b35492cc74b4', '1581578731548-c64695cc6952', '1562259949-e8e7689d7828', '1581783898377-1c85bf937427', '1504148455328-c376907d081c', '1503387762-592deb58ef4e', '1544724569-5f546fd6f2b5', '1513506003901-1e6a229e2d15'];
+  const electricalGroups = [
+    { title: 'Iluminação e ambientes', image: 'assets/eletrica/eletrica-iluminacao.png', items: [
+      ['Instalação de luminárias', 'Instalação cuidadosa de pendentes, lustres, plafons e arandelas, com teste completo após a montagem.'],
+      ['Troca de lâmpadas e plafons', 'Substituição de peças antigas ou danificadas para recuperar a iluminação e renovar o ambiente.'],
+      ['Spots e trilhos', 'Distribuição e instalação de spots e trilhos para criar pontos de luz funcionais e decorativos.'],
+      ['Fitas e perfis de LED', 'Aplicação de iluminação em LED para sancas, móveis, bancadas e detalhes de acabamento.'],
+      ['Iluminação externa', 'Soluções para fachadas, jardins, corredores e áreas de lazer com materiais adequados ao local.'],
+      ['Sensor de presença', 'Instalação e regulagem de sensores para mais praticidade, segurança e economia de energia.']
+    ]},
+    { title: 'Tomadas e comandos', image: 'assets/eletrica/eletrica-tomadas.png', items: [
+      ['Instalação de tomadas', 'Criação de novos pontos conforme a necessidade do ambiente e a capacidade do circuito existente.'],
+      ['Troca de tomadas danificadas', 'Substituição de tomadas frouxas, aquecidas ou quebradas, com revisão das conexões.'],
+      ['Adequação 127 V ou 220 V', 'Avaliação técnica da rede e adequação do ponto quando houver disponibilidade e segurança para a mudança.'],
+      ['Interruptores simples', 'Instalação ou troca de interruptores com acabamento alinhado e funcionamento testado.'],
+      ['Interruptores paralelos', 'Comando da mesma iluminação em dois ou mais locais para trazer conforto ao dia a dia.'],
+      ['Tomadas USB e inteligentes', 'Modernização de pontos com recursos USB ou automação compatível com a instalação do imóvel.']
+    ]},
+    { title: 'Chuveiros e circuitos de potência', image: 'assets/eletrica/eletrica-chuveiros.png', items: [
+      ['Instalação de chuveiro elétrico', 'Instalação com verificação da tensão, potência, cabos, disjuntor e aterramento disponíveis.'],
+      ['Troca de resistência', 'Diagnóstico e substituição da resistência correta para o modelo e a tensão do chuveiro.'],
+      ['Conector para chuveiro', 'Troca de emendas inadequadas por conexão compatível, firme e protegida contra aquecimento.'],
+      ['Circuito dedicado para chuveiro', 'Execução ou adequação de circuito exclusivo, dimensionado após avaliação técnica no local.'],
+      ['Ponto para ar-condicionado', 'Preparação elétrica dedicada de acordo com a potência e as exigências do equipamento.'],
+      ['Circuito para forno ou cooktop', 'Criação de alimentação própria para equipamentos de maior potência, com proteção adequada.']
+    ]},
+    { title: 'Quadro e proteção', image: 'assets/eletrica/eletrica-quadro.png', items: [
+      ['Troca de disjuntor', 'Identificação da causa do desarme e substituição por componente compatível com o circuito.'],
+      ['Organização do quadro', 'Revisão de conexões, identificação dos circuitos e organização interna do quadro elétrico.'],
+      ['Instalação de DR', 'Proteção adicional contra choques elétricos, aplicada conforme as condições da instalação.'],
+      ['Instalação de DPS', 'Proteção da rede e dos equipamentos contra surtos elétricos, com dimensionamento correto.'],
+      ['Balanceamento de circuitos', 'Análise da distribuição das cargas para reduzir sobrecargas e melhorar o funcionamento da rede.'],
+      ['Diagnóstico de quedas e curtos', 'Investigação de desarmes, falta de energia, aquecimento e curtos para localizar a origem da falha.']
+    ]},
+    { title: 'Infraestrutura e projetos', image: 'assets/eletrica/eletrica-infraestrutura.png', items: [
+      ['Passagem de nova fiação', 'Instalação de cabos dimensionados para novos pontos, ampliações ou circuitos independentes.'],
+      ['Substituição de fiação antiga', 'Renovação de trechos deteriorados após inspeção da infraestrutura e das cargas do imóvel.'],
+      ['Canaletas e eletrodutos', 'Infraestrutura aparente ou embutida organizada para proteger cabos e manter um bom acabamento.'],
+      ['Cabeamento para TV e internet', 'Passagem e organização de cabos para melhorar a distribuição dos pontos de comunicação.'],
+      ['Novo ponto elétrico', 'Planejamento e execução de ponto adicional para atender móveis, equipamentos ou mudanças no ambiente.'],
+      ['Projeto e adequação elétrica', 'Levantamento das necessidades e organização da instalação para reformas, ampliações e melhorias.']
+    ]}
+  ];
+  const pathKey = location.pathname.split('/').filter(Boolean).pop();
+  const key = new URLSearchParams(location.search).get('tipo') || (pathKey && sets[pathKey] ? pathKey : 'eletrica');
+  const service = sets[key] || sets.eletrica;
+  const whatsapp = (name) => 'https://wa.me/5522988020606?text=' + encodeURIComponent('Olá! Gostaria de solicitar um orçamento para ' + name + '.');
+
+  q('#title').textContent = service[0];
+  q('#tag').textContent = service[1];
+  q('#lead').textContent = 'Atendimento profissional para cuidar do seu imóvel com segurança e organização.';
+  q('#f-service').value = service[0];
+  q('.hero').style.backgroundImage = 'url(https://images.unsplash.com/photo-' + photos[0] + '?auto=format&fit=crop&w=1800&q=88)';
+  document.querySelectorAll('.wa').forEach((link) => { link.href = whatsapp(service[0]); });
+
+  function makeCarousel(track, dots, prev, next) {
+    const cards = [...track.children];
+    let position = 0;
+    const go = (index) => {
+      position = index >= cards.length ? 0 : index < 0 ? cards.length - 1 : index;
+      track.scrollTo({ left: cards[position].offsetLeft - track.offsetLeft, behavior: 'smooth' });
+      [...dots.children].forEach((dot, i) => dot.classList.toggle('on', i === position));
+    };
+    prev.addEventListener('click', () => go(position - 1));
+    next.addEventListener('click', () => go(position + 1));
+    [...dots.children].forEach((dot, i) => dot.addEventListener('click', () => go(i)));
+  }
+
+  function renderElectricalCatalog() {
+    const section = q('.lateral');
+    section.classList.add('electrical-catalog');
+    section.innerHTML = '<div class="wrap"><div class="electrical-intro"><small>SOLUÇÕES ELÉTRICAS</small><h2>Encontre o serviço elétrico que você precisa.</h2><p>Escolha uma opção e fale diretamente com a Mãos à Obra. Antes da execução, avaliamos as condições da instalação e apresentamos o orçamento.</p></div><div id="electrical-groups"></div></div>';
+    const container = q('#electrical-groups');
+    electricalGroups.forEach((group, groupIndex) => {
+      const block = document.createElement('section');
+      block.className = 'electrical-group';
+      block.innerHTML = '<div class="electrical-group-head"><div><span class="electrical-group-label">GRUPO ' + String(groupIndex + 1).padStart(2, '0') + '</span><h3>' + group.title + '</h3></div><div class="electrical-controls"><button class="group-prev" aria-label="Serviço anterior">←</button><button class="group-next" aria-label="Próximo serviço">→</button></div></div><div class="electrical-viewport"><div class="electrical-track">' + group.items.map((item, itemIndex) => '<article class="electrical-slide"><div class="electrical-copy"><span class="electrical-count">' + String(itemIndex + 1).padStart(2, '0') + ' / 06</span><h4>' + item[0] + '</h4><p>' + item[1] + '</p><a class="btn" target="_blank" rel="noopener" href="' + whatsapp(item[0]) + '">Pedir orçamento</a></div><div class="electrical-photo"><img src="' + group.image + '" alt="' + item[0] + '" loading="lazy"></div></article>').join('') + '</div></div><div class="electrical-dots">' + group.items.map((_, i) => '<button class="' + (i === 0 ? 'on' : '') + '" aria-label="Ver serviço ' + (i + 1) + '"></button>').join('') + '</div>';
+      container.appendChild(block);
+      makeCarousel(q('.electrical-track', block), q('.electrical-dots', block), q('.group-prev', block), q('.group-next', block));
+    });
+  }
+
+  function renderStandardCarousel() {
+    const track = q('#track');
+    const dots = q('#dots');
+    track.innerHTML = service[2].map((name, i) => '<article class="card"><div class="copy"><h3>' + name + '</h3><p>Avaliamos a necessidade, explicamos a solução e executamos conforme o orçamento aprovado.</p></div><img src="https://images.unsplash.com/photo-' + photos[i] + '?auto=format&fit=crop&w=1200&q=86" alt="' + name + '"></article>').join('');
+    dots.innerHTML = service[2].map((_, i) => '<button class="' + (i ? '' : 'on') + '"></button>').join('');
+    makeCarousel(track, dots, q('#prev'), q('#next'));
+  }
+
+  if (key === 'eletrica') renderElectricalCatalog(); else renderStandardCarousel();
+
+  q('#lead-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const text = ['Olá! Gostaria de solicitar uma avaliação.', 'Nome: ' + q('#f-name').value, 'Telefone: ' + q('#f-phone').value, 'E-mail: ' + q('#f-email').value, 'Cidade: ' + q('#f-city').value + ' / ' + q('#f-state').value, 'Serviço: ' + service[0], 'Detalhes: ' + (q('#f-message').value || 'Não informado')].join('\n');
+    window.open('https://wa.me/5522988020606?text=' + encodeURIComponent(text), '_blank');
+  });
+})();
