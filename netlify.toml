@@ -1,6 +1,36 @@
 [build]
   publish = "out"
 
+[[redirects]]
+  from = "/eletrica"
+  to = "/servico-diferenciais.html?tipo=eletrica"
+  status = 200
+
+[[redirects]]
+  from = "/hidraulica"
+  to = "/servico-diferenciais.html?tipo=hidraulica"
+  status = 200
+
+[[redirects]]
+  from = "/pintura"
+  to = "/servico-diferenciais.html?tipo=pintura"
+  status = 200
+
+[[redirects]]
+  from = "/revestimentos"
+  to = "/servico-diferenciais.html?tipo=revestimentos"
+  status = 200
+
+[[redirects]]
+  from = "/montagens"
+  to = "/servico-diferenciais.html?tipo=montagens"
+  status = 200
+
+[[redirects]]
+  from = "/reforma"
+  to = "/servico-diferenciais.html?tipo=reforma"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -12,4 +42,3 @@
   for = "/assets/*"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
-
