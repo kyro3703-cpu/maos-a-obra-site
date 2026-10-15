@@ -12,11 +12,11 @@
   const electricalGroups = [
     { title: 'Iluminação e ambientes', image: 'assets/eletrica/eletrica-iluminacao.png', items: [
       ['Instalação de luminárias', 'Instalamos pendentes, lustres, plafons e arandelas com fixação segura, acabamento cuidadoso e teste completo de funcionamento.'],
-      ['Troca de lâmpadas e plafons', 'Substituição de peças antigas ou danificadas para recuperar a iluminação e renovar o ambiente.'],
-      ['Spots e trilhos', 'Distribuição e instalação de spots e trilhos para criar pontos de luz funcionais e decorativos.'],
-      ['Fitas e perfis de LED', 'Aplicação de iluminação em LED para sancas, móveis, bancadas e detalhes de acabamento.'],
-      ['Iluminação externa', 'Soluções para fachadas, jardins, corredores e áreas de lazer com materiais adequados ao local.'],
-      ['Sensor de presença', 'Instalação e regulagem de sensores para mais praticidade, segurança e economia de energia.']
+      ['Troca de lâmpadas e plafons', 'Substituição de peças antigas ou danificadas para recuperar a iluminação e renovar o ambiente.', 'assets/eletrica/troca-lampadas-plafons.png'],
+      ['Spots e trilhos', 'Distribuição e instalação de spots e trilhos para criar pontos de luz funcionais e decorativos.', 'assets/eletrica/spots-trilhos.png'],
+      ['Fitas e perfis de LED', 'Aplicação de iluminação em LED para sancas, móveis, bancadas e detalhes de acabamento.', 'assets/eletrica/fita-led.png'],
+      ['Iluminação externa', 'Soluções para fachadas, jardins, corredores e áreas de lazer com materiais adequados ao local.', 'assets/eletrica/iluminacao-externa.png'],
+      ['Sensor de presença', 'Instalação e regulagem de sensores para mais praticidade, segurança e economia de energia.', 'assets/eletrica/sensor-presenca.png']
     ]},
     { title: 'Tomadas e comandos', image: 'assets/eletrica/eletrica-tomadas.png', items: [
       ['Instalação de tomadas', 'Criação de novos pontos conforme a necessidade do ambiente e a capacidade do circuito existente.'],
@@ -106,7 +106,7 @@
     electricalGroups.forEach((group, groupIndex) => {
       const block = document.createElement('section');
       block.className = 'electrical-group';
-      block.innerHTML = '<div class="electrical-group-head"><div><span class="electrical-group-label">GRUPO ' + String(groupIndex + 1).padStart(2, '0') + '</span><h3>' + group.title + '</h3></div><div class="electrical-controls"><button class="group-prev" aria-label="Serviço anterior">←</button><button class="group-next" aria-label="Próximo serviço">→</button></div></div><div class="electrical-viewport"><div class="electrical-track">' + group.items.map((item, itemIndex) => '<article class="electrical-slide"><div class="electrical-copy"><span class="electrical-count">' + String(itemIndex + 1).padStart(2, '0') + ' / 06</span><h4>' + item[0] + '</h4><p>' + item[1] + '</p><a class="btn" target="_blank" rel="noopener" href="' + whatsapp(item[0]) + '">Pedir orçamento</a></div><div class="electrical-photo"><img src="' + group.image + '" alt="' + item[0] + '" loading="lazy"></div></article>').join('') + '</div></div><div class="electrical-dots">' + group.items.map((_, i) => '<button class="' + (i === 0 ? 'on' : '') + '" aria-label="Ver serviço ' + (i + 1) + '"></button>').join('') + '</div>';
+      block.innerHTML = '<div class="electrical-group-head"><div><span class="electrical-group-label">GRUPO ' + String(groupIndex + 1).padStart(2, '0') + '</span><h3>' + group.title + '</h3></div><div class="electrical-controls"><button class="group-prev" aria-label="Serviço anterior">←</button><button class="group-next" aria-label="Próximo serviço">→</button></div></div><div class="electrical-viewport"><div class="electrical-track">' + group.items.map((item, itemIndex) => '<article class="electrical-slide"><div class="electrical-copy"><span class="electrical-count">' + String(itemIndex + 1).padStart(2, '0') + ' / 06</span><h4>' + item[0] + '</h4><p>' + item[1] + '</p><a class="btn" target="_blank" rel="noopener" href="' + whatsapp(item[0]) + '">Pedir orçamento</a></div><div class="electrical-photo"><img src="' + (item[2] || group.image) + '" alt="' + item[0] + '" loading="lazy"></div></article>').join('') + '</div></div><div class="electrical-dots">' + group.items.map((_, i) => '<button class="' + (i === 0 ? 'on' : '') + '" aria-label="Ver serviço ' + (i + 1) + '"></button>').join('') + '</div>';
       container.appendChild(block);
       makeCarousel(q('.electrical-track', block), q('.electrical-dots', block), q('.group-prev', block), q('.group-next', block), 5000 + (groupIndex * 1100));
     });
