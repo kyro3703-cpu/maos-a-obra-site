@@ -69,6 +69,12 @@
     const go = (index) => {
       position = index >= cards.length ? 0 : index < 0 ? cards.length - 1 : index;
       track.scrollTo({ left: cards[position].offsetLeft - track.offsetLeft, behavior: 'smooth' });
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        track.animate(
+          [{ opacity: 1 }, { opacity: 0.58, offset: 0.42 }, { opacity: 1 }],
+          { duration: 620, easing: 'ease-in-out' }
+        );
+      }
       [...dots.children].forEach((dot, i) => dot.classList.toggle('on', i === position));
     };
     prev.addEventListener('click', () => go(position - 1));
