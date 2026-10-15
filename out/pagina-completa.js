@@ -11,7 +11,7 @@
   const photos = ['1621905252507-b35492cc74b4', '1581578731548-c64695cc6952', '1562259949-e8e7689d7828', '1581783898377-1c85bf937427', '1504148455328-c376907d081c', '1503387762-592deb58ef4e', '1544724569-5f546fd6f2b5', '1513506003901-1e6a229e2d15'];
   const electricalGroups = [
     { title: 'Iluminação e ambientes', image: 'assets/eletrica/eletrica-iluminacao.png', items: [
-      ['Instalação de luminárias', 'Instalação cuidadosa de pendentes, lustres, plafons e arandelas, com teste completo após a montagem.'],
+      ['Instalação de luminárias', 'Instalamos pendentes, lustres, plafons e arandelas com fixação segura, acabamento cuidadoso e teste completo de funcionamento.'],
       ['Troca de lâmpadas e plafons', 'Substituição de peças antigas ou danificadas para recuperar a iluminação e renovar o ambiente.'],
       ['Spots e trilhos', 'Distribuição e instalação de spots e trilhos para criar pontos de luz funcionais e decorativos.'],
       ['Fitas e perfis de LED', 'Aplicação de iluminação em LED para sancas, móveis, bancadas e detalhes de acabamento.'],
