@@ -63,16 +63,20 @@
   q('.hero').style.backgroundImage = 'url(https://images.unsplash.com/photo-' + photos[0] + '?auto=format&fit=crop&w=1800&q=88)';
   document.querySelectorAll('.wa').forEach((link) => { link.href = whatsapp(service[0]); });
 
-  function makeCarousel(track, dots, prev, next) {
+  function makeCarousel(track, dots, prev, next, initialDelay = 5000) {
     const cards = [...track.children];
     let position = 0;
     let timer;
+    let kickoff;
     const go = (index) => {
       position = index >= cards.length ? 0 : index < 0 ? cards.length - 1 : index;
       track.scrollTo({ left: cards[position].offsetLeft - track.offsetLeft, behavior: 'smooth' });
       [...dots.children].forEach((dot, i) => dot.classList.toggle('on', i === position));
     };
-    const stop = () => clearInterval(timer);
+    const stop = () => {
+      clearInterval(timer);
+      clearTimeout(kickoff);
+    };
     const start = () => {
       stop();
       timer = setInterval(() => go(position + 1), 5000);
@@ -88,7 +92,10 @@
     track.addEventListener('mouseleave', start);
     track.addEventListener('touchstart', stop, { passive: true });
     track.addEventListener('touchend', start, { passive: true });
-    start();
+    kickoff = setTimeout(() => {
+      go(position + 1);
+      start();
+    }, initialDelay);
   }
 
   function renderElectricalCatalog() {
@@ -101,7 +108,7 @@
       block.className = 'electrical-group';
       block.innerHTML = '<div class="electrical-group-head"><div><span class="electrical-group-label">GRUPO ' + String(groupIndex + 1).padStart(2, '0') + '</span><h3>' + group.title + '</h3></div><div class="electrical-controls"><button class="group-prev" aria-label="Serviço anterior">←</button><button class="group-next" aria-label="Próximo serviço">→</button></div></div><div class="electrical-viewport"><div class="electrical-track">' + group.items.map((item, itemIndex) => '<article class="electrical-slide"><div class="electrical-copy"><span class="electrical-count">' + String(itemIndex + 1).padStart(2, '0') + ' / 06</span><h4>' + item[0] + '</h4><p>' + item[1] + '</p><a class="btn" target="_blank" rel="noopener" href="' + whatsapp(item[0]) + '">Pedir orçamento</a></div><div class="electrical-photo"><img src="' + group.image + '" alt="' + item[0] + '" loading="lazy"></div></article>').join('') + '</div></div><div class="electrical-dots">' + group.items.map((_, i) => '<button class="' + (i === 0 ? 'on' : '') + '" aria-label="Ver serviço ' + (i + 1) + '"></button>').join('') + '</div>';
       container.appendChild(block);
-      makeCarousel(q('.electrical-track', block), q('.electrical-dots', block), q('.group-prev', block), q('.group-next', block));
+      makeCarousel(q('.electrical-track', block), q('.electrical-dots', block), q('.group-prev', block), q('.group-next', block), 5000 + (groupIndex * 1100));
     });
   }
 
