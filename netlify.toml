@@ -31,6 +31,11 @@
   to = "/servico-diferenciais.html?tipo=reforma"
   status = 200
 
+[[redirects]]
+  from = "/jardinagem-limpeza"
+  to = "/servico-diferenciais.html?tipo=jardinagem-limpeza"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]
