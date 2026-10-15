@@ -66,14 +66,29 @@
   function makeCarousel(track, dots, prev, next) {
     const cards = [...track.children];
     let position = 0;
+    let timer;
     const go = (index) => {
       position = index >= cards.length ? 0 : index < 0 ? cards.length - 1 : index;
       track.scrollTo({ left: cards[position].offsetLeft - track.offsetLeft, behavior: 'smooth' });
       [...dots.children].forEach((dot, i) => dot.classList.toggle('on', i === position));
     };
-    prev.addEventListener('click', () => go(position - 1));
-    next.addEventListener('click', () => go(position + 1));
-    [...dots.children].forEach((dot, i) => dot.addEventListener('click', () => go(i)));
+    const stop = () => clearInterval(timer);
+    const start = () => {
+      stop();
+      timer = setInterval(() => go(position + 1), 5000);
+    };
+    const choose = (index) => {
+      go(index);
+      start();
+    };
+    prev.addEventListener('click', () => choose(position - 1));
+    next.addEventListener('click', () => choose(position + 1));
+    [...dots.children].forEach((dot, i) => dot.addEventListener('click', () => choose(i)));
+    track.addEventListener('mouseenter', stop);
+    track.addEventListener('mouseleave', start);
+    track.addEventListener('touchstart', stop, { passive: true });
+    track.addEventListener('touchend', start, { passive: true });
+    start();
   }
 
   function renderElectricalCatalog() {
