@@ -1,10 +1,12 @@
-.rc-brand-logo {
+.rc-brand-logo,
+.brand-logo {
   display: inline-flex;
   align-items: center;
   flex: 0 0 auto;
 }
 
-.rc-brand-logo img {
+.rc-brand-logo img,
+.brand-logo img {
   display: block;
   width: 215px;
   max-width: 100%;
@@ -16,8 +18,13 @@
   width: 205px;
 }
 
+.service-footer .brand-logo img {
+  width: 205px;
+}
+
 @media (max-width: 560px) {
-  .rc-brand-logo img {
+  .rc-brand-logo img,
+  .brand-logo img {
     width: 170px;
   }
 }
