@@ -1,0 +1,23 @@
+.rc-brand-logo {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.rc-brand-logo img {
+  display: block;
+  width: 215px;
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 1px 1px rgba(6, 29, 53, 0.5));
+}
+
+.rc-footer .rc-brand-logo img {
+  width: 205px;
+}
+
+@media (max-width: 560px) {
+  .rc-brand-logo img {
+    width: 170px;
+  }
+}

@@ -8,3 +8,11 @@
 .service-grid.specialties{grid-template-columns:repeat(6,1fr);gap:10px}.specialties article{padding:21px 17px;min-width:0}.specialties h3{margin:0 0 9px;font-size:15px}.specialties p{min-height:0;margin:0;font-size:11px;line-height:1.55}.specialties .featured p{color:#bed0ca}
 @media(max-width:1050px){.service-grid.specialties{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:560px){.service-grid.specialties{grid-template-columns:1fr}}
+
+/* Identidade visual Mãos à Obra */
+.brand-logo{display:flex;align-items:center;background:transparent;border-radius:0;padding:0}.brand-logo img{display:block;width:210px;max-width:100%;height:auto;filter:drop-shadow(0 1px 1px #061d3580)}.header .brand-logo{padding:0}.footer-brand .brand-logo{width:max-content;max-width:100%}.about-logo{display:block;width:82%;height:auto;object-fit:contain}.about-card{padding:34px}.about-card .about-logo{margin:0 auto}
+@media(max-width:560px){.brand-logo img{width:168px}.header .brand-logo{padding:0}.about-card{height:300px;padding:22px}.about-logo{width:95%}}
+
+/* Paleta oficial Mãos à Obra: azul-marinho, ouro e branco */
+:root{--green:#061d35;--green-2:#0b365f;--mint:#e7eef5;--sand:#ffb900;--cream:#f5f8fb;--ink:#061d35;--muted:#60748a;--line:#d7e2ec}
+.topbar,.steps,footer{background:#061d35}.header .nav-cta,.contact{background:#0b365f}.header .nav-cta:hover{background:#061d35}.hero-shade{background:linear-gradient(90deg,#061d35f2 0%,#061d35c7 42%,#061d3524 76%,transparent 100%)}.service-grid article.featured{background:#061d35;border-color:#061d35}.about-card{background:linear-gradient(145deg,#0b365f,#061d35);box-shadow:22px 22px 0 #ffb90033}.button.primary,.brand-icon{background:#ffb900}.button.primary:hover{background:#ffc62f}.eyebrow{color:#ffb900}.eyebrow.green,.service-grid a,.about li:before{color:#0b365f}.whatsapp{background:#0b365f}

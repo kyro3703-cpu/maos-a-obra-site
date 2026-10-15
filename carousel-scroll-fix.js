@@ -1,0 +1,1 @@
+(()=>{const original=Element.prototype.scrollIntoView;Element.prototype.scrollIntoView=function(options){if(this.classList&&this.classList.contains('rc-card')){const track=this.closest('.rc-cards');if(track){track.scrollTo({left:this.offsetLeft-track.offsetLeft,behavior:options&&options.behavior||'smooth'});return}}return original.call(this,options)}})();

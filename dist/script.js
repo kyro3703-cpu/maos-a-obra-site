@@ -18,12 +18,12 @@ document.querySelectorAll('[data-service]').forEach(link => link.addEventListene
 }));
 document.getElementById('year').textContent = new Date().getFullYear();
 
-const WHATSAPP_NUMBER = '5522999990000'; // Troque pelo WhatsApp real antes de publicar.
+const WHATSAPP_NUMBER = '5522988020606'; // Troque pelo WhatsApp real antes de publicar.
 document.getElementById('budget-form').addEventListener('submit', event => {
   event.preventDefault();
   const data = new FormData(event.currentTarget);
   const message = [
-    'Olá! Gostaria de solicitar um orçamento com a ObraCerta.',
+    'Olá! Gostaria de solicitar um orçamento com a Mãos à Obra.',
     '',
     `Nome: ${data.get('nome')}`,
     `Telefone: ${data.get('telefone')}`,

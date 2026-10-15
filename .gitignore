@@ -1,0 +1,22 @@
+# Sistema e editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Dependências e caches
+node_modules/
+.cache/
+
+# Pacotes e cópias de publicação
+*.zip
+*.tar
+*.tar.gz
+dist/
+dist-clean/
+
+# Arquivos temporários
+*.log
+*.tmp
+*~
+

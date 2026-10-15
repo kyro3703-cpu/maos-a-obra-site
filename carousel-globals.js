@@ -1,0 +1,1 @@
+const tag=document.querySelector('#tag'),title=document.querySelector('#title'),lead=document.querySelector('#lead'),track=document.querySelector('#track'),dots=document.querySelector('#dots'),prev=document.querySelector('#prev'),next=document.querySelector('#next');
