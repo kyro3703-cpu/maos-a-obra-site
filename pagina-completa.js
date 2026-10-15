@@ -7,7 +7,8 @@
     revestimentos: ['Pisos e revestimentos', 'REVESTIMENTOS', ['Piso cerâmico', 'Porcelanato', 'Azulejos', 'Piso sobre piso', 'Rodapés', 'Rejuntamento', 'Troca de peças', 'Preparação da base']],
     montagens: ['Montagens e reparos', 'SERVIÇOS RESIDENCIAIS', ['Móveis', 'Suportes', 'Prateleiras', 'Varais', 'Cortinas', 'Fechaduras', 'Portas', 'Pequenos reparos']],
     reforma: ['Reformas residenciais', 'REFORMAS E MELHORIAS', ['Cozinha', 'Banheiro', 'Quarto', 'Sala', 'Área externa', 'Alvenaria', 'Drywall e gesso', 'Acabamentos']],
-    'jardinagem-limpeza': ['Jardinagem e limpeza pós-obra', 'CUIDADO EXTERNO E LIMPEZA', ['Corte de grama', 'Poda e acabamento', 'Limpeza de jardins', 'Plantio e manutenção', 'Limpeza pós-obra', 'Remoção de resíduos leves', 'Limpeza de pisos e revestimentos', 'Limpeza final para entrega']]
+    'jardinagem-piscina': ['Jardinagem e piscina', 'CUIDADO COM ÁREAS EXTERNAS', ['Corte de grama', 'Poda e acabamento', 'Limpeza de jardins', 'Plantio e manutenção', 'Limpeza de piscina', 'Aspiração e escovação', 'Tratamento da água', 'Manutenção preventiva']],
+    'limpeza-pos-obra': ['Limpeza pós-obra', 'LIMPEZA PARA ENTREGA', ['Remoção de poeira fina', 'Limpeza de pisos', 'Limpeza de revestimentos', 'Limpeza de vidros', 'Limpeza de portas e esquadrias', 'Remoção de respingos', 'Organização dos ambientes', 'Limpeza final para entrega']]
   };
   const photos = ['1621905252507-b35492cc74b4', '1581578731548-c64695cc6952', '1562259949-e8e7689d7828', '1581783898377-1c85bf937427', '1504148455328-c376907d081c', '1503387762-592deb58ef4e', '1544724569-5f546fd6f2b5', '1513506003901-1e6a229e2d15'];
   const electricalGroups = [

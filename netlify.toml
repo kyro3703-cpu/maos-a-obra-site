@@ -32,8 +32,13 @@
   status = 200
 
 [[redirects]]
-  from = "/jardinagem-limpeza"
-  to = "/servico-diferenciais.html?tipo=jardinagem-limpeza"
+  from = "/jardinagem-piscina"
+  to = "/servico-diferenciais.html?tipo=jardinagem-piscina"
+  status = 200
+
+[[redirects]]
+  from = "/limpeza-pos-obra"
+  to = "/servico-diferenciais.html?tipo=limpeza-pos-obra"
   status = 200
 
 [[headers]]
