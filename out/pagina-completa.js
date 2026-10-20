@@ -62,7 +62,7 @@
   q('#tag').textContent = service[1];
   q('#lead').textContent = 'Atendimento profissional para cuidar do seu imóvel com segurança e organização.';
   q('#f-service').value = service[0];
-  q('.hero').style.backgroundImage = 'url(https://images.unsplash.com/photo-' + photos[0] + '?auto=format&fit=crop&w=1800&q=88)';
+  q('.hero').style.backgroundImage = "url('assets/hero-equipe-maos-a-obra.png')";
   document.querySelectorAll('.wa').forEach((link) => { link.href = whatsapp(service[0]); });
 
   function makeCarousel(track, dots, prev, next, initialDelay = 5000) {

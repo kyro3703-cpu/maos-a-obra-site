@@ -1,10 +1,9 @@
 @echo off
 setlocal
-chcp 65001 >nul
-
 cd /d "%~dp0"
 
 set "GIT_EXE=C:\Program Files\Git\cmd\git.exe"
+set "GIT_SAFE=-c safe.directory=*"
 
 if not exist "%GIT_EXE%" (
   echo ERRO: Git nao foi encontrado em:
@@ -19,13 +18,13 @@ echo   Publicar site Maos a Obra
 echo ========================================
 echo.
 
-"%GIT_EXE%" status --short
+"%GIT_EXE%" %GIT_SAFE% status --short
 if errorlevel 1 goto :erro
 
-"%GIT_EXE%" add .
+"%GIT_EXE%" %GIT_SAFE% add .
 if errorlevel 1 goto :erro
 
-"%GIT_EXE%" diff --cached --quiet
+"%GIT_EXE%" %GIT_SAFE% diff --cached --quiet
 if errorlevel 1 goto :commit
 goto :push
 
@@ -35,13 +34,13 @@ set "MSG="
 set /p "MSG=Descreva a alteracao: "
 if not defined MSG set "MSG=Atualiza site Maos a Obra"
 
-"%GIT_EXE%" commit -m "%MSG%"
+"%GIT_EXE%" %GIT_SAFE% commit -m "%MSG%"
 if errorlevel 1 goto :erro
 
 :push
 echo.
 echo Enviando para o GitHub...
-"%GIT_EXE%" push
+"%GIT_EXE%" %GIT_SAFE% push
 if errorlevel 1 goto :erro
 
 echo.
