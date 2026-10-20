@@ -53,6 +53,48 @@
       ['Projeto e adequação elétrica', 'Levantamento das necessidades e organização da instalação para reformas, ampliações e melhorias.']
     ]}
   ];
+  const hydraulicGroups = [
+    { title: 'Vazamentos e diagnóstico', image: 'assets/servicos/hidraulica.png', items: [
+      ['Localização de vazamentos', 'Investigação da origem do vazamento e orientação da solução mais adequada para o imóvel.'],
+      ['Reparo de vazamentos', 'Correção de vazamentos em pontos aparentes, conexões, registros e tubulações acessíveis.'],
+      ['Infiltrações hidráulicas', 'Avaliação de sinais de umidade relacionados a tubulações, conexões e pontos de água.'],
+      ['Teste de estanqueidade', 'Verificação das condições da instalação para identificar perda de pressão e possíveis falhas.'],
+      ['Manutenção preventiva', 'Revisão de pontos hidráulicos para reduzir problemas e prolongar a vida útil da instalação.'],
+      ['Avaliação hidráulica', 'Análise técnica do local antes da execução e apresentação de orçamento claro.']
+    ]},
+    { title: 'Torneiras e registros', image: 'assets/servicos/hidraulica.png', items: [
+      ['Instalação de torneiras', 'Instalação e substituição de torneiras de cozinha, banheiro, área de serviço e áreas externas.'],
+      ['Troca de registros', 'Substituição de registros com desgaste, vazamento ou dificuldade de fechamento.'],
+      ['Misturadores', 'Instalação e manutenção de misturadores conforme o modelo e as condições do ponto existente.'],
+      ['Engates e flexíveis', 'Troca de engates, flexíveis e conexões com revisão das vedações.'],
+      ['Filtros de água', 'Instalação de filtros e purificadores com adequação do ponto hidráulico.'],
+      ['Sifões e válvulas', 'Substituição e ajuste de sifões, válvulas e conexões de pias e lavatórios.']
+    ]},
+    { title: 'Descargas e caixas', image: 'assets/servicos/hidraulica.png', items: [
+      ['Reparo de descarga', 'Correção de falhas em descargas de parede, caixas acopladas e mecanismos internos.'],
+      ['Caixa acoplada', 'Regulagem, troca de mecanismo, boia, vedação e botão da caixa acoplada.'],
+      ['Válvula de descarga', 'Avaliação e manutenção de válvulas com vazamento, baixo fluxo ou acionamento irregular.'],
+      ['Boias e mecanismos', 'Troca de boias e mecanismos para evitar desperdício e melhorar o funcionamento.'],
+      ['Caixa de gordura', 'Limpeza, manutenção e adequação de conexões da caixa de gordura.'],
+      ['Ralos e grelhas', 'Instalação e substituição de ralos, grelhas e componentes de escoamento.']
+    ]},
+    { title: 'Tubulações, pias e ralos', image: 'assets/servicos/hidraulica.png', items: [
+      ['Desentupimento simples', 'Desobstrução de pias, ralos e pontos acessíveis com avaliação da causa do problema.'],
+      ['Instalação de pias e cubas', 'Instalação de pias e cubas com conexão, vedação e teste de escoamento.'],
+      ['Troca de tubulações', 'Substituição de trechos de tubulação comprometidos após avaliação no local.'],
+      ['Conexões hidráulicas', 'Adequação de conexões, joelhos, tês e prolongadores para corrigir ou criar pontos.'],
+      ['Pontos de água', 'Criação ou deslocamento de pontos de água para cozinhas, banheiros e áreas de serviço.'],
+      ['Pontos de esgoto', 'Adequação de pontos de esgoto respeitando o caimento e as condições da instalação.']
+    ]},
+    { title: 'Caixas d’água e manutenção', image: 'assets/servicos/hidraulica.png', items: [
+      ['Instalação de caixa d’água', 'Instalação e adequação de caixa d’água conforme o espaço e a estrutura disponíveis.'],
+      ['Limpeza de caixa d’água', 'Limpeza e higienização para ajudar a manter a qualidade da água armazenada.'],
+      ['Boia de caixa d’água', 'Troca e regulagem da boia para controlar corretamente o abastecimento.'],
+      ['Extravasor e ladrão', 'Adequação de tubulações de segurança para evitar transbordamentos.'],
+      ['Pressurização', 'Avaliação de baixa pressão e instalação de solução compatível com a necessidade do imóvel.'],
+      ['Revisão hidráulica geral', 'Conferência dos principais pontos hidráulicos e recomendações para manutenção.']
+    ]}
+  ];
   const pathKey = location.pathname.split('/').filter(Boolean).pop();
   const key = new URLSearchParams(location.search).get('tipo') || (pathKey && sets[pathKey] ? pathKey : 'eletrica');
   const service = sets[key] || sets.eletrica;
@@ -114,6 +156,20 @@
     });
   }
 
+  function renderHydraulicCatalog() {
+    const section = q('.lateral');
+    section.classList.add('hydraulic-catalog');
+    section.innerHTML = '<div class="wrap"><div class="electrical-intro"><small>SOLUÇÕES HIDRÁULICAS</small><h2>Encontre o serviço hidráulico que você precisa.</h2><p>Escolha uma opção e fale diretamente com a Mãos à Obra. Antes da execução, avaliamos as condições da instalação e apresentamos o orçamento.</p></div><div id="electrical-groups"></div></div>';
+    const container = q('#electrical-groups');
+    hydraulicGroups.forEach((group, groupIndex) => {
+      const block = document.createElement('section');
+      block.className = 'electrical-group';
+      block.innerHTML = '<div class="electrical-group-head"><div><span class="electrical-group-label">GRUPO ' + String(groupIndex + 1).padStart(2, '0') + '</span><h3>' + group.title + '</h3></div><div class="electrical-controls"><button class="group-prev" aria-label="Serviço anterior">←</button><button class="group-next" aria-label="Próximo serviço">→</button></div></div><div class="electrical-viewport"><div class="electrical-track">' + group.items.map((item, itemIndex) => '<article class="electrical-slide"><div class="electrical-copy"><span class="electrical-count">' + String(itemIndex + 1).padStart(2, '0') + ' / 06</span><h4>' + item[0] + '</h4><p>' + item[1] + '</p><a class="btn" target="_blank" rel="noopener" href="' + whatsapp(item[0]) + '">Pedir orçamento</a></div><div class="electrical-photo"><img src="' + (item[2] || group.image) + '" alt="' + item[0] + '" loading="lazy"></div></article>').join('') + '</div></div><div class="electrical-dots">' + group.items.map((_, i) => '<button class="' + (i === 0 ? 'on' : '') + '" aria-label="Ver serviço ' + (i + 1) + '"></button>').join('') + '</div>';
+      container.appendChild(block);
+      makeCarousel(q('.electrical-track', block), q('.electrical-dots', block), q('.group-prev', block), q('.group-next', block), 5000 + (groupIndex * 1100));
+    });
+  }
+
   function renderStandardCarousel() {
     const track = q('#track');
     const dots = q('#dots');
@@ -122,7 +178,7 @@
     makeCarousel(track, dots, q('#prev'), q('#next'));
   }
 
-  if (key === 'eletrica') renderElectricalCatalog(); else renderStandardCarousel();
+  if (key === 'eletrica') renderElectricalCatalog(); else if (key === 'hidraulica') renderHydraulicCatalog(); else renderStandardCarousel();
 
   q('#lead-form').addEventListener('submit', (event) => {
     event.preventDefault();
