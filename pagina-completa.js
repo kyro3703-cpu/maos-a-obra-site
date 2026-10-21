@@ -95,6 +95,22 @@
       ['Revisão hidráulica geral', 'Conferência dos principais pontos hidráulicos e recomendações para manutenção.']
     ]}
   ];
+  const catalogTitles = {
+    pintura: ['Preparação e proteção', 'Pintura e acabamento'],
+    revestimentos: ['Pisos e paredes', 'Acabamentos e reparos'],
+    montagens: ['Instalações residenciais', 'Ajustes e reparos'],
+    reforma: ['Ambientes e planejamento', 'Execução e acabamento'],
+    'jardinagem-piscina': ['Jardins e áreas externas', 'Piscinas e manutenção'],
+    'limpeza-pos-obra': ['Limpeza pesada', 'Finalização e entrega']
+  };
+  const catalogImages = {
+    pintura: 'assets/servicos/pintura.png',
+    revestimentos: 'assets/servicos/revestimentos.png',
+    montagens: 'assets/servicos/montagens-reparos.png',
+    reforma: 'assets/servicos/reforma-completa.png',
+    'jardinagem-piscina': 'assets/servicos/jardinagem-piscina.png',
+    'limpeza-pos-obra': 'assets/servicos/limpeza-pos-obra.png'
+  };
   const pathKey = location.pathname.split('/').filter(Boolean).pop();
   const key = new URLSearchParams(location.search).get('tipo') || (pathKey && sets[pathKey] ? pathKey : 'eletrica');
   const service = sets[key] || sets.eletrica;
@@ -170,6 +186,28 @@
     });
   }
 
+  function renderGenericCatalog() {
+    const section = q('.lateral');
+    const titles = catalogTitles[key] || ['Serviços principais', 'Soluções e acabamento'];
+    const image = catalogImages[key] || 'assets/servicos/hidraulica.png';
+    const names = service[2];
+    const groups = titles.map((title, groupIndex) => ({
+      title,
+      image,
+      items: names.slice(groupIndex * 4, groupIndex * 4 + 4).map((name) => [name, 'Avaliamos a necessidade, explicamos a solução e executamos o serviço conforme o orçamento aprovado.'])
+    }));
+    section.classList.add('electrical-catalog');
+    section.innerHTML = '<div class="wrap"><div class="electrical-intro"><small>' + service[1] + '</small><h2>Encontre o serviço que você precisa.</h2><p>Escolha uma opção e fale diretamente com a Mãos à Obra. Antes da execução, avaliamos as condições do local e apresentamos o orçamento.</p></div><div id="electrical-groups"></div></div>';
+    const container = q('#electrical-groups');
+    groups.forEach((group, groupIndex) => {
+      const block = document.createElement('section');
+      block.className = 'electrical-group';
+      block.innerHTML = '<div class="electrical-group-head"><div><span class="electrical-group-label">GRUPO ' + String(groupIndex + 1).padStart(2, '0') + '</span><h3>' + group.title + '</h3></div><div class="electrical-controls"><button class="group-prev" aria-label="Serviço anterior">←</button><button class="group-next" aria-label="Próximo serviço">→</button></div></div><div class="electrical-viewport"><div class="electrical-track">' + group.items.map((item, itemIndex) => '<article class="electrical-slide"><div class="electrical-copy"><span class="electrical-count">' + String(itemIndex + 1).padStart(2, '0') + ' / 04</span><h4>' + item[0] + '</h4><p>' + item[1] + '</p><a class="btn" target="_blank" rel="noopener" href="' + whatsapp(item[0]) + '">Pedir orçamento</a></div><div class="electrical-photo"><img src="' + image + '" alt="' + item[0] + '" loading="lazy"></div></article>').join('') + '</div></div><div class="electrical-dots">' + group.items.map((_, i) => '<button class="' + (i === 0 ? 'on' : '') + '" aria-label="Ver serviço ' + (i + 1) + '"></button>').join('') + '</div>';
+      container.appendChild(block);
+      makeCarousel(q('.electrical-track', block), q('.electrical-dots', block), q('.group-prev', block), q('.group-next', block), 5000 + (groupIndex * 1100));
+    });
+  }
+
   function renderStandardCarousel() {
     const track = q('#track');
     const dots = q('#dots');
@@ -178,7 +216,7 @@
     makeCarousel(track, dots, q('#prev'), q('#next'));
   }
 
-  if (key === 'eletrica') renderElectricalCatalog(); else if (key === 'hidraulica') renderHydraulicCatalog(); else renderStandardCarousel();
+  if (key === 'eletrica') renderElectricalCatalog(); else if (key === 'hidraulica') renderHydraulicCatalog(); else if (catalogTitles[key]) renderGenericCatalog(); else renderStandardCarousel();
 
   q('#lead-form').addEventListener('submit', (event) => {
     event.preventDefault();
