@@ -46,9 +46,8 @@ goto :push
 
 :commit
 echo.
-set "MSG="
-set /p "MSG=Descreva a alteracao: "
-if not defined MSG set "MSG=Atualiza site Maos a Obra"
+set "MSG=Atualiza site Maos a Obra"
+echo Commit automatico: %MSG%
 
 "%GIT_EXE%" %GIT_SAFE% commit -m "%MSG%"
 if errorlevel 1 goto :erro
@@ -56,8 +55,19 @@ if errorlevel 1 goto :erro
 :push
 echo.
 echo Enviando para o GitHub...
-"%GIT_EXE%" %GIT_SAFE% push
-if errorlevel 1 goto :erro
+set /a PUSH_TRY=0
+
+:push_attempt
+set /a PUSH_TRY+=1
+echo Tentativa %PUSH_TRY% de 3...
+"%GIT_EXE%" %GIT_SAFE% push origin main
+if not errorlevel 1 goto :push_ok
+if %PUSH_TRY% GEQ 3 goto :erro
+echo Falha de conexao. Nova tentativa em 5 segundos...
+timeout /t 5 /nobreak >nul
+goto :push_attempt
+
+:push_ok
 
 echo.
 echo Push concluido. Estado final:
@@ -67,7 +77,7 @@ if errorlevel 1 goto :erro
 echo.
 echo ========================================
 echo Publicacao enviada com sucesso.
-echo A Netlify atualizara o site automaticamente.
+echo O Cloudflare Pages atualizara o site automaticamente.
 echo ========================================
 echo.
 pause
