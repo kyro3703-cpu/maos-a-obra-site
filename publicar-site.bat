@@ -18,10 +18,26 @@ echo   Publicar site Maos a Obra
 echo ========================================
 echo.
 
+echo Repositorio:
+"%GIT_EXE%" %GIT_SAFE% rev-parse --show-toplevel
+if errorlevel 1 goto :erro
+echo Branch atual:
+"%GIT_EXE%" %GIT_SAFE% branch --show-current
+if errorlevel 1 goto :erro
+echo Remotos configurados:
+"%GIT_EXE%" %GIT_SAFE% remote
+if errorlevel 1 goto :erro
+echo.
+echo Estado antes da preparacao:
 "%GIT_EXE%" %GIT_SAFE% status --short
 if errorlevel 1 goto :erro
 
 "%GIT_EXE%" %GIT_SAFE% add .
+if errorlevel 1 goto :erro
+
+echo.
+echo Arquivos preparados para commit:
+"%GIT_EXE%" %GIT_SAFE% diff --cached --name-status
 if errorlevel 1 goto :erro
 
 "%GIT_EXE%" %GIT_SAFE% diff --cached --quiet
@@ -41,6 +57,11 @@ if errorlevel 1 goto :erro
 echo.
 echo Enviando para o GitHub...
 "%GIT_EXE%" %GIT_SAFE% push
+if errorlevel 1 goto :erro
+
+echo.
+echo Push concluido. Estado final:
+"%GIT_EXE%" %GIT_SAFE% status --short --branch
 if errorlevel 1 goto :erro
 
 echo.
